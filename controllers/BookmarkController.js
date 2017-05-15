@@ -29,5 +29,19 @@ module.exports = {
                 resolve(bookmark);
             });
         });
+    },
+
+    create: function(params) {
+        return new Promise(function(resolve, reject) {
+    // create is a Mongoose function, Profile is the Model
+            Bookmark.create(params, function(err, bookmark) {
+                if (err){
+                    reject(err);
+                    return;
+                }
+
+                resolve(bookmark);
+            });
+        });
     }
 };
