@@ -4,9 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// Connect to the Database
+var mongoose = require('mongoose');
+require('dotenv').config();
 
 var index = require('./routes/index');
 var api = require('./routes/api');
+
+mongoose.connect(process.env.DB_URL, function(err, res) {
+    if (err) {
+        console.log('DB Connection FAILED: ' + err);
+    } else {
+    console.log('DB Connection SUCCESS!!!');
+    }
+});
 
 var app = express();
 
