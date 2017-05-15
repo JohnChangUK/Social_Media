@@ -16,5 +16,32 @@ module.exports = {
                 resolve(profiles);
             });
         });
+    },
+
+    findById: function(id) {
+        return new Promise(function(resolve, reject) {
+            Profile.findById(id, function(err, profile) {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+
+                resolve(profile);
+            });
+        });
+    },
+
+    create: function(params) {
+        return new Promise(function(resolve, reject) {
+    // create is a Mongoose function, Profile is the Model
+            Profile.create(params, function(err, profile) {
+                if (err){
+                    reject(err);
+                    return;
+                }
+
+                resolve(profile);
+            });
+        });
     }
 };

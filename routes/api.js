@@ -28,7 +28,34 @@ router.get('/:resource', function(req, res, next) {
             message: err
         });
     });
-
 });
+
+router.get('/:resource/:id', function(req, res, next) {
+    var resource = req.params.resource;
+    var controller = controllers[resource];
+        if (controller == null) {
+            res.json({
+                confirmation: 'Fail',
+                message: 'Invalid Resource'
+            });
+            return;
+        }
+        
+        var id = req.params.id;
+        controller.findById(id)
+        .then(function(result) {
+            res.json({
+                confirmation: 'Success',
+                result: result
+            });
+        })
+        .catch(function(err) {
+            res.json({
+                confirmation: 'Fail',
+                message: resource + ' ' + id + " not found"
+            });
+        });
+});
+
 
 module.exports = router;
